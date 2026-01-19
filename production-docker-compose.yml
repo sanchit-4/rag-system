@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  # 1. The Knowledge Base
+  weaviate:
+    image: semitechnologies/weaviate:1.24.1
+    ports:
+      - 8080:8080
+      - 50051:50051
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'none'
+      ENABLE_MODULES: ''
+
+  # 2. Your AI API
+  backend:
+    build: ./backend
+    ports:
+      - 8000:8000
+    environment:
+      - WEAVIATE_URL=http://weaviate:8080 # Uses docker network name
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    depends_on:
+      - weaviate
+
+  # 3. Your UI
+  frontend:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
