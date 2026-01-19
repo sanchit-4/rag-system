@@ -1,7 +1,7 @@
 import weaviate
 from llama_index.core import VectorStoreIndex, StorageContext, Settings, Document
 from llama_index.vector_stores.weaviate import WeaviateVectorStore
-from llama_index.embeddings.google_genai import GoogleGenAIEmbedding
+from llama_index.embeddings.gemini import GeminiEmbedding
 from llama_index.llms.gemini import Gemini
 import os
 from dotenv import load_dotenv
@@ -10,7 +10,7 @@ import weaviate.classes.init as auth # Add this import
 load_dotenv()
 
 # 1. Setup Models
-Settings.embed_model = GoogleGenAIEmbedding(
+Settings.embed_model = GeminiEmbedding(
     model_name="models/text-embedding-004",
     api_key=os.getenv("GOOGLE_API_KEY")
 )
