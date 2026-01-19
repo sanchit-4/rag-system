@@ -9,9 +9,12 @@ from app.engine import rag_service
 
 app = FastAPI()
 
+origins = ["http://localhost:3000", "https://ai-rag-system.vercel.app/", "https://rag-system-six.vercel.app/", "https://ai-rag-system.vercel.app", "https://rag-system-six.vercel.app"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # Allow Frontend
+    allow_origins=["origins"],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
