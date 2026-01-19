@@ -10,6 +10,7 @@ llama-index-vector-stores-weaviate
 llama-index-embeddings-google-genai
 llama-index-embeddings-google
 nest_asyncio
+llama-index-llms-google
 
 # Database
 weaviate-client>=3.26.0
